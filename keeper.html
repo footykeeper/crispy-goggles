@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Footy Keeper</title>
+  <style>
+    body {
+      margin: auto;
+      text-align: center;
+      padding: 10px;
+      background-image: url("http://pre05.deviantart.net/1e7f/th/pre/f/2013/217/0/e/epl_wallpaper_by_himfin93-d6gt1mg.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    table {
+      background-color: #fff;
+      margin: auto;
+      text-align: center;
+    }
+    th, td {
+      border: 1px solid #000;
+      padding: 5px;
+    }
+    input, select, option {
+      background: #fff;
+    }
+    button {
+      background: #dedede;
+      border: none;
+      color: #000;
+      padding: 5px;
+      border-radius: 5px;
+    } button:hover {
+      background: #dedede;
+      box-shadow: 1px 1px 5px #000000;
+    }
+    .white {
+      background-color: #fff;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="containerOne">
+    <input type="text" placeholder="Your team's player count" id="playerCount">
+    <button onclick="createTable()">Begin</button>
+  </div>
+  <table>
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+  <p id="advancePrompt"></p>
+  <div id="goalPrompt"></div>
+  <script>
+    var playerRow = "<tr><td><input type='text' placeholder='Name' class='pName'/></td><td><input type='text' placeholder='Number (1, 42, etc.)' class='pNumber'/></td><td><select placeholder='Position' class='pPosition'><option hidden selected>Select Position (optional, not recommended on teams were players play many positions)</option><option value='0'>Goalkeeper</option><option value='1'>Defender</option><option value='2'>Midfielder</option><option value='3'>Forward</option></select></td></tr>";
+    var players = null;
+    var papaya = null;
+    function createTable () {
+      players = document.getElementById("playerCount").value;
+      papaya = document.getElementById("containerOne");
+      document.getElementsByTagName("thead")[0].innerHTML = "<tr><th>Player</th><th>Number</th><th>Position</th></tr>";
+      document.getElementsByTagName("tbody")[0].innerHTML = playerRow.repeat(players);
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>When you are done inputing your roster, click advance.</span><br/><br/><button onclick='prepForStart()'>Advance</button>";
+      papaya.removeChild(papaya.childNodes[1]);
+      papaya.removeChild(papaya.childNodes[2]);
+    }
+    var roster = [];
+    var numbers = [];
+    var rosterReps = null;
+    function prepForStart () {
+      for (rosterReps = 0; rosterReps < players; rosterReps++) {
+        roster.push(document.getElementsByClassName("pName")[rosterReps].value);
+        // alert(roster[rosterReps]);
+        numbers.push(document.getElementsByClassName("pNumber")[rosterReps].value);
+        // alert(numbers[rosterReps]);
+        document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved! Press 'GOAL!' when your team scores, or press 'END' when the game is over.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='endGame()'>END</button>";
+      }
+    }
+    var reps = null;
+    var dropdown = null;
+    var scorerOption = "<option value='" + reps + "' class='scorerOption'>" + roster[reps] + "</option>";
+    function goal () {
+      // document.getElementById("goalPrompt").innerHTML = "<input type='text' placeholder='Who scored?' class='scorer'/><br/><input type='text' placeholder='Who made the assist?' class='assister'/><br/><button onclick='submitGoal()'>Submit</button>";
+      dropdown = "<select id='goalScorer'><option hidden>Select the scorer</option>";
+      // String(scorerOption).repeat(roster.length) + "</select>";
+      for (reps = 0; reps < roster.length; reps++) {
+        dropdown += "<option value='" + reps + "'>" + roster[reps] + "</option>";
+      }
+      dropdown += "</option></select>";
+      dropdown += "<br/><br/>";
+      dropdown += "<select id='goalAssist'><option hidden>Select who made the assist</option>";
+      for (reps = 0; reps < roster.length; reps++) {
+        dropdown += "<option value='" + reps + "'>" + roster[reps] + "</option>";
+      }
+      dropdown += "</select><br/><br/><button onclick='submitGoal()'>Submit</button>";
+      document.getElementById("goalPrompt").innerHTML = String(dropdown);
+    }
+    var scorers = [];
+    var assists = [];
+    var goalCount = 0;
+    function submitGoal () {
+      scorers.push(document.getElementById("goalScorer").value);
+      assists.push(document.getElementById("goalAssist").value);
+      //alert(roster[scorers[goalCount]] + " scored. " + roster[scorers[goalCount]] + " was assisted by " + roster[assists[goalCount]]);
+      //alert(scorers + assists);
+      goalCount++;
+      document.getElementById("goalPrompt").innerHTML = "";
+    }
+    var playerGoals = [];
+    var playerAssists = [];
+    var endTable = "<table><thead><tr><th>Player</th><th>Number</th><th>Goals/Assists</th></tr></thead><tbody>";
+    function assignGoals () {
+      // Give each player 0 to begin
+      for (reps = 0; reps < roster.length; reps++) {
+        playerGoals.push(0);
+      }
+      for (reps = 0; reps < roster.length; reps++) {
+        for (i = 0; i < goalCount; i++) {
+          if (reps == scorers[i]) {
+            playerGoals[reps]++;
+          }
+        }
+      }
+      // alert(playerGoals);
+      for (reps = 0; reps < roster.length; reps++) {
+        playerAssists.push(0);
+      }
+      for (reps = 0; reps < roster.length; reps++) {
+        for (i = 0; i < goalCount; i++) {
+          if (reps == assists[i]) {
+            playerAssists[reps]++;
+          }
+        }
+      }
+    }
+    function endGame () {
+      assignGoals();
+      for (reps = 0; reps < roster.length; reps++) {
+        endTable += "<tr><td>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td>" + playerGoals[reps] + "/" + playerAssists[reps] + "</td>";
+      }
+      endTable += "</tbody></table>";
+      document.getElementsByTagName("body")[0].innerHTML = endTable;
+    }
+  </script>
+</body>
+</html>
