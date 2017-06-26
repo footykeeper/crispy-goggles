@@ -53,61 +53,82 @@
   <p id="advancePrompt"></p>
   <div id="goalPrompt"></div>
   <script>
+    // A row in the table to make creating the table much simpler
     var playerRow = "<tr><td><input type='text' placeholder='Name' class='pName'/></td><td><input type='text' placeholder='Number (1, 42, etc.)' class='pNumber'/></td><td><select placeholder='Position' class='pPosition'><option hidden selected>Select Position (optional, not recommended on teams were players play many positions)</option><option value='0'>Goalkeeper</option><option value='1'>Defender</option><option value='2'>Midfielder</option><option value='3'>Forward</option></select></td></tr>";
     var players = null;
+    // Just a random name to store a document.getElementById value
     var papaya = null;
     function createTable () {
+      // Get the player count based on user input
       players = document.getElementById("playerCount").value;
       papaya = document.getElementById("containerOne");
       document.getElementsByTagName("thead")[0].innerHTML = "<tr><th>Player</th><th>Number</th><th>Position</th></tr>";
+      // Take playerRow from line 57 to make table creation faster, repeat the row for each player
       document.getElementsByTagName("tbody")[0].innerHTML = playerRow.repeat(players);
       document.getElementById("advancePrompt").innerHTML = "<span class='white'>When you are done inputing your roster, click advance.</span><br/><br/><button onclick='prepForStart()'>Advance</button>";
+      // Remove the start button and player count input
       papaya.removeChild(papaya.childNodes[1]);
       papaya.removeChild(papaya.childNodes[2]);
     }
+    // Empty array to be filled with player names
     var roster = [];
+    // Empty array to be filled with player numbers
     var numbers = [];
     var rosterReps = null;
     function prepForStart () {
       for (rosterReps = 0; rosterReps < players; rosterReps++) {
+        // Gets a player name from a row on the input table
         roster.push(document.getElementsByClassName("pName")[rosterReps].value);
-        // alert(roster[rosterReps]);
+        // Gets a player number from a row on the input table
         numbers.push(document.getElementsByClassName("pNumber")[rosterReps].value);
-        // alert(numbers[rosterReps]);
+        // Creates a button that allows user to advance from table input
         document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved! Press 'GOAL!' when your team scores, or press 'END' when the game is over.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='endGame()'>END</button>";
       }
     }
+    // To be used in place/addition of i in later for loops
     var reps = null;
+    // To be filled in later
     var dropdown = null;
     var scorerOption = "<option value='" + reps + "' class='scorerOption'>" + roster[reps] + "</option>";
+    // To be triggered by user pressing a button when a player scores
     function goal () {
-      // document.getElementById("goalPrompt").innerHTML = "<input type='text' placeholder='Who scored?' class='scorer'/><br/><input type='text' placeholder='Who made the assist?' class='assister'/><br/><button onclick='submitGoal()'>Submit</button>";
+      // Adds opening select tag to scorer dropdown
       dropdown = "<select id='goalScorer'><option hidden>Select the scorer</option>";
-      // String(scorerOption).repeat(roster.length) + "</select>";
+      // Adds an option for each player
       for (reps = 0; reps < roster.length; reps++) {
         dropdown += "<option value='" + reps + "'>" + roster[reps] + "</option>";
       }
       dropdown += "</option></select>";
       dropdown += "<br/><br/>";
-      dropdown += "<select id='goalAssist'><option hidden>Select who made the assist</option>";
+      // Essentially repeating the previous process, except prompting user for who made the assist
+      dropdown += "<select id='goalAssist'><option hidden>Select who made the assist (leave blank if solo goal, free kick, or penalty kick)</option>";
       for (reps = 0; reps < roster.length; reps++) {
         dropdown += "<option value='" + reps + "'>" + roster[reps] + "</option>";
       }
+      // Adds submit button
       dropdown += "</select><br/><br/><button onclick='submitGoal()'>Submit</button>";
+      // Inserts dropdown into document
+      // Note the use of the String() method. Without using it, the HTML fills in everything added as "undefined"
       document.getElementById("goalPrompt").innerHTML = String(dropdown);
     }
+    // To be filled in later
     var scorers = [];
+    // To be filled in later
     var assists = [];
+    // Added to each time a goal is submitted
     var goalCount = 0;
     function submitGoal () {
+      // Accesses user input
       scorers.push(document.getElementById("goalScorer").value);
       assists.push(document.getElementById("goalAssist").value);
-      //alert(roster[scorers[goalCount]] + " scored. " + roster[scorers[goalCount]] + " was assisted by " + roster[assists[goalCount]]);
-      //alert(scorers + assists);
+      // Adds to goalCount
       goalCount++;
+      // Removes goal prompt, can be found again by pressing GOAL button
       document.getElementById("goalPrompt").innerHTML = "";
     }
+    // To be filled in later
     var playerGoals = [];
+    // To be filled in later
     var playerAssists = [];
     var endTable = "<table><thead><tr><th>Player</th><th>Number</th><th>Goals/Assists</th></tr></thead><tbody>";
     function assignGoals () {
@@ -115,14 +136,21 @@
       for (reps = 0; reps < roster.length; reps++) {
         playerGoals.push(0);
       }
+      // Possibly the most confusing part of the code, each player is on the roster as an integer.
+      // The first player is 0, the next 1, and so on.
+      // When a player scores, the scorer array has their number added to it.
+      // This for loop selects a player
       for (reps = 0; reps < roster.length; reps++) {
+        // This for loop selects a scorer
         for (i = 0; i < goalCount; i++) {
+          // If the player's integer matches the scorers integer
           if (reps == scorers[i]) {
+            // Add 1 goal to their slot on the playerGoals array
             playerGoals[reps]++;
           }
         }
       }
-      // alert(playerGoals);
+      // This is the same process as the scorer process, just assigning assists rather than goals
       for (reps = 0; reps < roster.length; reps++) {
         playerAssists.push(0);
       }
@@ -135,11 +163,14 @@
       }
     }
     function endGame () {
+      // Calls the monstrous function just above
       assignGoals();
+      // Creates table displaying each player, their number, and their amount of goals/assists.
       for (reps = 0; reps < roster.length; reps++) {
         endTable += "<tr><td>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td>" + playerGoals[reps] + "/" + playerAssists[reps] + "</td>";
       }
       endTable += "</tbody></table>";
+      // Inserts table in document
       document.getElementsByTagName("body")[0].innerHTML = endTable;
     }
   </script>
