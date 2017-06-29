@@ -1,1 +1,34 @@
 
+<!DOCTYPE html>
+<html>
+<head>  
+  <title>Footykeeper Time Tracking</title>
+</head>
+<body>
+  <button onclick="startTimer()">Start Timer</button>
+  <p id="displayTime"></p>
+  <div id="containerOne"></div>
+  <p id="elapsedDisplay"></p>
+  <script>
+    var date = null;
+    var startTime = null;
+    var goalTimes = [];
+    var displayStartTime = null;
+
+    var elapsedTime = null;
+
+    function startTimer () {
+      date = new Date();
+      // Get the time since Jan 1, 1970 (measured in milliseconds)
+      startTime = date.getTime();
+      // Get the time of today (in hour:minute:second format)
+      displayStartTime = "Start time: " + String(date.getHours()) + ":" + String(date.getMinutes()) + ":" + String(date.getSeconds());
+      document.getElementById("displayTime").innerHTML = displayStartTime;
+      document.getElementById("containerOne").innerHTML = "<button onclick='findElapsed()'>Find Elapsed Time</button>";
+    }
+
+    function findElapsed () {
+    }
+  </script>
+</body>
+</html>
