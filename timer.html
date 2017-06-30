@@ -1,33 +1,54 @@
-
 <!DOCTYPE html>
 <html>
 <head>  
   <title>Footykeeper Time Tracking</title>
 </head>
 <body>
-  <button onclick="startTimer()">Start Timer</button>
+  <div id="buttonParent">
+    <button onclick="startTimer()" id="startingTimer">Start Timer</button>
+  </div>
   <p id="displayTime"></p>
   <div id="containerOne"></div>
   <p id="elapsedDisplay"></p>
+  <div id="containerTwo"></div>
   <script>
     var date = null;
+    var papaya = null;
+    var banana = null;
     var startTime = null;
     var goalTimes = [];
     var displayStartTime = null;
-
     var elapsedTime = null;
+    var firstHalfLength = null;
+    // For finding elapsed time
+    var elapsedTools = {
+      date: null,
+      time: null,
+      elapsedTime: null
+    };
 
+    // Get current time and update HTML
     function startTimer () {
       date = new Date();
       // Get the time since Jan 1, 1970 (measured in milliseconds)
       startTime = date.getTime();
       // Get the time of today (in hour:minute:second format)
-      displayStartTime = "Start time: " + String(date.getHours()) + ":" + String(date.getMinutes()) + ":" + String(date.getSeconds());
-      document.getElementById("displayTime").innerHTML = displayStartTime;
+      displayStartTime = date;
+      document.getElementById("displayTime").innerHTML = "Start time: " + displayStartTime;
       document.getElementById("containerOne").innerHTML = "<button onclick='findElapsed()'>Find Elapsed Time</button>";
+      document.getElementById("containerTwo").innerHTML = "<button onclick='endHalf()'>End First Half</button>";
+      papaya = document.getElementById("buttonParent");
+      banana = document.getElementById("startingTimer");
+      papaya.removeChild(banana);
     }
 
     function findElapsed () {
+      // Get the date at the time of clicking
+      elapsedTools.date = new Date();
+      // Get the time from the newly-defined elapsedTools.date object
+      elapsedTools.time = elapsedTools.date.getTime();
+      // Find the elapsed time by subtracting startTime from the current time, then divide by 1000 to go from ms to s
+      elapsedTools.elapsedTime = (elapsedTools.time - startTime) / 1000;
     }
   </script>
 </body>
