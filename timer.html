@@ -5,6 +5,17 @@
 </head>
 <body>
   <div id="buttonParent">
+    <select id="halfLength">
+      <option hidden>How long will the halves be?</option>
+      <option value="20">20 Minutes</option>
+      <option value="25">25 Minutes</option>
+      <option value="30">30 Minutes</option>
+      <option value="35">35 Minutes</option>
+      <option value="40">40 Minutes</option>
+      <option value="45">45 Minutes</option>
+    </select>
+    <br id="rawr"/>
+    <br id="xd"/>
     <button onclick="startTimer()" id="startingTimer">Start Timer</button>
   </div>
   <p id="displayTime"></p>
@@ -13,12 +24,15 @@
   <div id="containerTwo"></div>
   <script>
     var date = null;
-    var papaya = null;
-    var banana = null;
+    var papay = null;
+    var banan = null;
+    var tomat = null;
     var startTime = null;
     var goalTimes = [];
     var displayStartTime = null;
     var elapsedTime = null;
+    var rawr = null;
+    var xd = null;
     var firstHalfLength = null;
     // For finding elapsed time
     var elapsedTools = {
@@ -34,12 +48,19 @@
       startTime = date.getTime();
       // Get the time of today (in hour:minute:second format)
       displayStartTime = date;
-      document.getElementById("displayTime").innerHTML = "Start time: " + displayStartTime;
+      document.getElementById("displayTime").innerHTML = "First half start time: " + displayStartTime;
       document.getElementById("containerOne").innerHTML = "<button onclick='findElapsed()'>Find Elapsed Time</button>";
       document.getElementById("containerTwo").innerHTML = "<button onclick='endHalf()'>End First Half</button>";
-      papaya = document.getElementById("buttonParent");
-      banana = document.getElementById("startingTimer");
-      papaya.removeChild(banana);
+      papay = document.getElementById("buttonParent");
+      banan = document.getElementById("startingTimer");
+      // Save half length in tomato.value
+      tomat = document.getElementById("halfLength");
+      rawr = document.getElementById("rawr");
+      xd = document.getElementById("xd");
+      papay.removeChild(banan);
+      papay.removeChild(tomat);
+      papay.removeChild(rawr);
+      papay.removeChild(xd);
     }
 
     function findElapsed () {
@@ -49,6 +70,15 @@
       elapsedTools.time = elapsedTools.date.getTime();
       // Find the elapsed time by subtracting startTime from the current time, then divide by 1000 to go from ms to s
       elapsedTools.elapsedTime = (elapsedTools.time - startTime) / 1000;
+    }
+
+    function endHalf () {
+      document.getElementById("containerOne").innerHTML = "";
+      document.getElementById("containerTwo").innerHTML = "<button onclick='nextHalf()'>Begin next half</button>";
+    }
+
+    function nextHalf() {
+      document.getElementById("displayTime").innerHTML += "<br/>Second half start time: " + new Date();
     }
   </script>
 </body>
