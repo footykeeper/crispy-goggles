@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home || footykeeper</title>
+</head>
+<body>
+  <table id="navigation" class="nav-table">
+    <tr id="targetRow">
+      <!-- To be filled in by Javascript -->
+    </tr>
+  </table>
+  <div class="content"></div>
+  <script>
+    var links = [
+      {
+        name: "Home",
+        url: "http://footykeeper.com"
+      },
 
+      {
+        name: "Keeper",
+        url: "http://footykeeper.com/keeper.html"
+      }
+    ];
+
+    var link = null;
+
+    function createLinks () {
+      link = "";
+      for (i = 0; i < links.length; i++) {
+        link += "<td class='nav-button'><a href='" + links[i].url + "'>" + links[i].name + "</a></td>";
+      }
+      document.getElementById("targetRow").innerHTML = link;
+    }
+
+    createLinks();
+  </script>
+</body>
+</html>
