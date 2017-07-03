@@ -20,7 +20,7 @@
       elapsedMinutes: null
     };
     // A row in the table to make creating the table much simpler
-    var playerRow = "<tr><td><input type='text' placeholder='Name' class='pName'/></td><td><input type='text' placeholder='Number (1, 42, etc.)' class='pNumber'/></td><td><select placeholder='Position' class='pPosition'><option hidden selected>Select Position (optional, not recommended on teams were players play many positions)</option><option value='0'>Goalkeeper</option><option value='1'>Defender</option><option value='2'>Midfielder</option><option value='3'>Forward</option></select></td></tr>";
+    var playerRow = "<tr class='tr-keeper'><td class='td-keeper'><input type='text' placeholder='Name' class='pName'/></td><td class='td-keeper'><input type='text' placeholder='Number (1, 42, etc.)' class='pNumber'/></td><td class='td-keeper'><select placeholder='Position' class='pPosition'><option hidden selected>Select Position (optional, not recommended on teams were players play many positions)</option><option value='0'>Goalkeeper</option><option value='1'>Defender</option><option value='2'>Midfielder</option><option value='3'>Forward</option></select></td></tr>";
     var players = null;
     // Just a random name to store a document.getElementById value
     var papaya = null;
@@ -33,7 +33,7 @@
       tomat = document.getElementById("halfLength");
       halfLength = tomat.value;
       document.getElementsByTagName("title")[0].innerHTML = teamName + " || footykeeper";
-      document.getElementsByTagName("thead")[0].innerHTML = "<tr><th>Player</th><th>Number</th><th>Position</th></tr>";
+      document.getElementsByTagName("thead")[0].innerHTML = "<tr class='tr-keeper'><th>Player</th><th>Number</th><th>Position</th></tr>";
       document.getElementsByTagName("tbody")[0].innerHTML = playerRow.repeat(players);
       document.getElementById("advancePrompt").innerHTML = "<span class='white'>When you are done inputing your roster and the referee has blown the starting whistle, click advance.</span><br/><br/><button onclick='prepForStart()'>Advance</button>";
       // Remove the start button and player count input
@@ -67,14 +67,14 @@
         // Gets a player number from a row on the input table
         numbers.push(document.getElementsByClassName("pNumber")[rosterReps].value);
         // Creates a button that allows user to advance from table input
-        document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved, and the game has begun! Press 'GOAL!' when your team scores, or press 'END HALF' when the half is over.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='endHalf()'>END HALF</button>";
+        document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved, and the game has begun! Press 'GOAL!' when your team scores, or press 'END HALF' when the half is over.</span><br/><br/><button onclick='goal()' class='button-keeper'>GOAL!</button><br/><br/><button class='button-keeper' onclick='endHalf()'>END HALF</button>";
       }
     }
     
     function endHalf () {
       document.getElementById("advancePrompt").innerHTML = "";
       document.getElementById("containerTwo").innerHTML = "";
-      document.getElementById("containerFour").innerHTML = "<button onclick='nextHalf()' id='nextHalfButton'>Begin next half</button>";
+      document.getElementById("containerFour").innerHTML = "<button onclick='nextHalf()' id='nextHalfButton' class='button-keeper'>Begin next half</button>";
     }
     
     function nextHalf() {
@@ -82,7 +82,7 @@
       document.getElementById("containerFour").removeChild(document.getElementById("nextHalfButton"));
       startTime = new Date().getTime();
       half = 1;
-      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved, and the game has begun! Press 'GOAL!' when your team scores, or press 'END GAME' when the game is over.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='endGame()'>END GAME</button>";
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved, and the game has begun! Press 'GOAL!' when your team scores, or press 'END GAME' when the game is over.</span><br/><br/><button onclick='goal()' class='button-keeper'>GOAL!</button><br/><br/><button class='button-keeper' onclick='endGame()'>END GAME</button>";
     }
     
     // To be used in place/addition of i in later for loops
@@ -105,7 +105,7 @@
       }
       goalTimes.push(elapsedTools.elapsedMinutes);
       // Adds opening select tag to scorer dropdown
-      dropdown = "<select id='goalScorer'><option hidden>Select the scorer</option>";
+      dropdown = "<select id='goalScorer' class='select-keeper'><option hidden>Select the scorer</option>";
       // Adds an option for each player
       for (reps = 0; reps < roster.length; reps++) {
         dropdown += "<option value='" + reps + "'>" + roster[reps] + "</option>";
@@ -192,7 +192,7 @@
       assignGoals();
       // Creates table displaying each player, their number, and their amount of goals/assists.
       for (reps = 0; reps < roster.length; reps++) {
-        endTable += "<tr><td>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td>" + playerGoals[reps] + "/" + playerAssists[reps] + "</td>";
+        endTable += "<tr class='tr-keeper'><td class='td-keeper'>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td class='td-keeper'>" + playerGoals[reps] + "/" + playerAssists[reps] + "</td>";
       }
       endTable += "</tbody></table><br/><p id='finalContainer'></p>";
       // Inserts table in document
