@@ -1,12 +1,12 @@
 /* This CSS file is specially designed for keeper.html */
 
-    select, option {
+    .select-keeper {
       background-color: #fff;
       border: none;
       padding: 2px;
     }
     
-    body {
+    .body-keeper {
       margin: auto;
       text-align: center;
       padding: 10px;
@@ -16,22 +16,22 @@
       background-attachment: fixed;
     }
     
-    table {
+    .table-keeper {
       background-color: #fff;
       margin: auto;
       text-align: center;
     }
     
-    th, td {
+    .th-keeper, .td-keeper {
       border: 1px solid #000;
       padding: 5px;
     }
-    
-    input, select, option {
-      background: #fff;
+
+    .input-keeper {
+      color: #fff;    
     }
     
-    button {
+    .button-keeper {
       background: #dedede;
       border: none;
       color: #000;
