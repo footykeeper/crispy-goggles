@@ -2,66 +2,7 @@
 <html>
 <head>
   <title>Home || footykeeper</title>
-  <style>
-    body {
-      background-image: url("http://yesofcorsa.com/wp-content/uploads/2015/08/1713_soccer.jpg");
-      background-size: cover;
-      background-position: center center;
-      background-attachment: fixed;
-      color: #000;
-      font-family: Courier;
-    }
-
-    .title {
-      text-align: center;
-      font-size: 30px;
-      color: #000;
-      width: 450px;
-      margin: auto;
-    }
-
-    .nav-button {
-      background-color: #dedede;
-      padding: 5px;
-    }
-
-    .nav-table {
-      margin: auto;
-    }
-
-    .plain-link {
-      text-decoration: none;
-      color: #000;
-    }
-
-    .content {
-      background-color: #fff;
-      color: #000;
-      border: none;
-      border-radius: 5px;
-      margin: auto;
-      text-align: center;
-      padding: 5px;
-    }
-
-    .spacer1000 {
-      height: 1000px;
-    } .spacer500 {
-      height: 500px;
-    }.spacer300 {
-      height: 300px;
-    } .spacer250 {
-      height: 250px;
-    } .spacer200 {
-      height: 200px;
-    } .spacer100 {
-      height: 100px;
-    } .spacer50 {
-      height: 50px;
-    } .spacer25 {
-      height: 25px;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="https://footykeeper.github.io/crispy-goggles/main.css"/>
 </head>
 <body onload="createLinks()">
   <div class="spacer25"></div>
@@ -82,42 +23,6 @@
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
   </div>
-  <script>
-    // Links to be made navigation buttons
-    // To add a button, just add another object to the array
-    var links = [
-      {
-        name: "Home",
-        url: "http://footykeeper.com"
-      },
-
-      {
-        name: "Keeper",
-        url: "http://footykeeper.com/keeper.html"
-      }
-
-      /*
-      {
-        name: "About Us",
-        url: "http://footykeeper.com/about.html"
-      }
-      */
-    ];
-
-    var link = null;
-
-    function createLinks () {
-      // Set link to an empty string
-      link = "";
-
-      // Add navigation buttons
-      for (i = 0; i < links.length; i++) {
-        link += "<td class='nav-button'><a href='" + links[i].url + "' class='plain-link'>" + links[i].name + "</a></td><td></td>";
-      }
-
-      // Fill in the table with the links
-      document.getElementById("targetRow").innerHTML = link;
-    }
-  </script>
+  <script src="https://footykeeper.github.io/crispy-goggles/navigation.js"></script>
 </body>
 </html>
