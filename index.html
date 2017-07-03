@@ -8,6 +8,16 @@
       background-size: cover;
       background-position: center center;
       background-attachment: fixed;
+      color: #000;
+      font-family: Courier;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 30px;
+      color: #000;
+      width: 450px;
+      margin: auto;
     }
 
     .nav-button {
@@ -19,22 +29,62 @@
       margin: auto;
     }
 
+    .plain-link {
+      text-decoration: none;
+      color: #000;
+    }
+
     .content {
       background-color: #fff;
       color: #000;
       border: none;
       border-radius: 5px;
+      margin: auto;
+      text-align: center;
+      padding: 5px;
+    }
+
+    .spacer1000 {
+      height: 1000px;
+    } .spacer500 {
+      height: 500px;
+    }.spacer300 {
+      height: 300px;
+    } .spacer250 {
+      height: 250px;
+    } .spacer200 {
+      height: 200px;
+    } .spacer100 {
+      height: 100px;
+    } .spacer50 {
+      height: 50px;
+    } .spacer25 {
+      height: 25px;
     }
   </style>
 </head>
-<body>
+<body onload="createLinks()">
+  <div class="spacer25"></div>
   <table id="navigation" class="nav-table">
     <tr id="targetRow">
       <!-- To be filled in by Javascript -->
     </tr>
   </table>
-  <div class="content"></div>
+  <div class="spacer200"></div>
+  <div class="title">
+    <h1>
+      <em>footykeeper</em>
+    </h1>
+  </div>
+  <div class="spacer100"></div>
+  <div class="content">
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+  </div>
   <script>
+    // Links to be made navigation buttons
+    // To add a button, just add another object to the array
     var links = [
       {
         name: "Home",
@@ -45,19 +95,29 @@
         name: "Keeper",
         url: "http://footykeeper.com/keeper.html"
       }
+
+      /*
+      {
+        name: "About Us",
+        url: "http://footykeeper.com/about.html"
+      }
+      */
     ];
 
     var link = null;
 
     function createLinks () {
+      // Set link to an empty string
       link = "";
+
+      // Add navigation buttons
       for (i = 0; i < links.length; i++) {
-        link += "<td class='nav-button'><a href='" + links[i].url + "'>" + links[i].name + "</a></td>";
+        link += "<td class='nav-button'><a href='" + links[i].url + "' class='plain-link'>" + links[i].name + "</a></td><td></td>";
       }
+
+      // Fill in the table with the links
       document.getElementById("targetRow").innerHTML = link;
     }
-
-    createLinks();
   </script>
 </body>
 </html>
