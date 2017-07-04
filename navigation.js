@@ -4,12 +4,12 @@
 var links = [
   {
     name: "Home",
-    url: "http://footykeeper.com"
+    url: "/index"
   },
   
   {
     name: "Keeper",
-    url: "http://footykeeper.com/keeper.html"
+    url: "/keeper"
   }
   
   /*
