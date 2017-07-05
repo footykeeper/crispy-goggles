@@ -285,4 +285,5 @@
         penTable += "</tbody><table>";
         document.getElementById("penContainer").innerHTML = String(penTable);
       }
+      print();
     }
