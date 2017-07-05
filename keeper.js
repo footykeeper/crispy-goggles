@@ -251,7 +251,7 @@
       for (reps = 0; reps < roster.length; reps++) {
         endTable += "<tr><td>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td>" + playerGoals[reps] + "/" + playerAssists[reps] + "</td>";
       }
-      endTable += "</tbody></table><br/><p id='finalContainer'></p><p id='penContainer'></p>";
+      endTable += "</tbody></table><br/><p id='finalContainer'></p><p id='penContainer'></p><br/><br/><button onclick='print()' id='print'>Print Page</button>";
       // Inserts table in document
       document.getElementsByTagName("body")[0].innerHTML = endTable;
       document.getElementById("finalContainer").style.backgroundColor = "#fff";
@@ -285,5 +285,4 @@
         penTable += "</tbody><table>";
         document.getElementById("penContainer").innerHTML = String(penTable);
       }
-      print();
     }
