@@ -1,4 +1,5 @@
-var teamName = null;
+    var teamName = null;
+    var penalties = false;
     var date = null;
     var timeTable = null;
     var papay = null;
@@ -12,6 +13,8 @@ var teamName = null;
     var xd = null;
     var half = 0;
     var halfLength = null;
+    var extraTimeHalfLength = null;
+    var extraTimeHalf = null;
     // For finding elapsed time
     var elapsedTools = {
       date: null,
@@ -82,7 +85,7 @@ var teamName = null;
       document.getElementById("containerFour").removeChild(document.getElementById("nextHalfButton"));
       startTime = new Date().getTime();
       half = 1;
-      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved, and the game has begun! Press 'GOAL!' when your team scores, or press 'END GAME' when the game is over.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='endGame()'>END GAME</button>";
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>The second half has begun! Press 'GOAL!' when your team scores, press 'BEGIN EXTRA TIME', or press 'END GAME' when the game is over.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='beginExtraTime()'>BEGIN EXTRA TIME</button><br/><br/><button onclick='endGame()'>END GAME</button>";
     }
     
     // To be used in place/addition of i in later for loops
@@ -91,6 +94,56 @@ var teamName = null;
     var dropdown = null;
     var scorerOption = "<option value='" + reps + "' class='scorerOption'>" + roster[reps] + "</option>";
     
+    function beginExtraTime () {
+      document.getElementById("advancePrompt").innerHTML = "<select id='overTimeHalfLength'><option hidden>Select extra time half length</option><option value='5'>5 Minutes</option><option value='10'>10 Minutes</option><option value='15'>15 Minutes</option></select><br/><br/><span class='white'>When the referee blows the starting whistle, press 'START EXTRA TIME'. Press 'GOAL' when your team scores, or press 'END HALF' when this half of extra time is over.</span><br/><br/><button onclick='startExtraTime()'>START EXTRA TIME</button>";
+    }
+
+    function startExtraTime () {
+      extraTimeHalfLength = document.getElementById("overTimeHalfLength").value;
+      document.getElementById("displayTime").innerHTML += "<br/>First half of extra time start time: " + new Date();
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Press 'GOAL!' when your team scores, or press 'END HALF' when the half ends.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='endExtraTimeHalf()'>END HALF</button>";
+      startTime = new Date().getTime();
+      half = 2;
+      extraTimeHalf = 0;
+    }
+
+    function endExtraTimeHalf () {
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Press 'BEGIN HALF' to start the final period of extra time.</span><br/><br/><button onclick='finalExtraTime()'>BEGIN HALF</button>";
+    }
+
+    function finalExtraTime () {
+      extraTimeHalf = 1;
+      startTime = new Date().getTime();
+      document.getElementById("displayTime").innerHTML += "<br/>Second half of extra time start time: " + new Date();
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Press 'GOAL!' when your team scores, press 'BEGIN SHOOTOUT' to begin a penalty shootout, or press 'END GAME' to end the game.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='shootout()'>BEGIN SHOOTOUT</button><br/><br/><button onclick='endGame()'>END GAME</button>";
+    }
+
+    function shootout () {
+      penalties = true;
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Press 'SHOOT' when one of your players shoot their penalty, or press 'END GAME' when the shootout is over.</span><br/><br/><button onclick='shoot()'>SHOOT</button><br/><br/><button onclick='endGame()'>END GAME</button>";
+    }
+    
+    var penaltyPrompt = null;
+    // To be filled in later
+    var shooters = [];
+    // To be filled in later
+    var results = [];
+    
+    function shoot () {
+      penaltyPrompt = "<select id='pShooter'><option hidden>Select Shooter</option>";
+      for (reps = 0; reps < roster.length; reps++) {
+        penaltyPrompt += "<option value='" + reps + "'>" + roster[reps] + "</option>";
+      }
+      penaltyPrompt += "</select><br/><br/><select id='result'><option hidden>Did they score?</option><option value='0'>No</option><option value='1'>Yes</option></select><br/><br/><button onclick='submitPenalty()'>Submit</button>";
+      document.getElementById("goalPrompt").innerHTML = String(penaltyPrompt);
+    }
+
+    function submitPenalty () {
+      shooters.push(document.getElementById("pShooter").value);
+      results.push(document.getElementById("result").value);
+      document.getElementById("goalPrompt").innerHTML = "";
+    }
+
     // To be triggered by user pressing a button when a player scores
     function goal () {
       elapsedTools.date = new Date();
@@ -98,9 +151,9 @@ var teamName = null;
       elapsedTools.elapsedTime = ((elapsedTools.time - startTime) / 1000);
       elapsedTools.elapsedMinutes = Math.round(elapsedTools.elapsedTime / 60);
       if (elapsedTools.elapsedMinutes <= halfLength) {
-        elapsedTools.elapsedMinutes = String(elapsedTools.elapsedMinutes + 1 + half * halfLength + "'");
+        elapsedTools.elapsedMinutes = String(elapsedTools.elapsedMinutes + 1 + half * halfLength + extraTimeHalf * extraTimeHalfLength + "'");
       } else if (elapsedTools.elapsedMinutes > halfLength) {
-        elapsedTools.elapsedMinutes = parseInt(halfLength, 10) + parseInt(half, 10) * parseInt(halfLength, 10);
+        elapsedTools.elapsedMinutes = parseInt(halfLength, 10) + parseInt(half, 10) * parseInt(halfLength, 10) + parseInt(extraTimeHalf, 10) * parseInt(extraTimeHalfLength, 10);
         elapsedTools.elapsedMinutes += "+";
       }
       goalTimes.push(elapsedTools.elapsedMinutes);
@@ -141,9 +194,9 @@ var teamName = null;
       document.getElementById("goalPrompt").innerHTML = "";
     }
     
-    // To be filled in later
+    // To be filled in later via pushes
     var playerGoals = [];
-    // To be filled in later
+    // To be filled in later via pushes
     var playerAssists = [];
     var endTable = "<table><thead><tr><th>Player</th><th>Number</th><th>Goals/Assists</th></tr></thead><tbody>";
     
@@ -187,6 +240,10 @@ var teamName = null;
       }
     }
     
+    var penTable = null;
+    var penGoals = [];
+    var penAttempts = [];
+
     function endGame () {
       // Calls the monstrous function just above
       assignGoals();
@@ -194,11 +251,38 @@ var teamName = null;
       for (reps = 0; reps < roster.length; reps++) {
         endTable += "<tr><td>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td>" + playerGoals[reps] + "/" + playerAssists[reps] + "</td>";
       }
-      endTable += "</tbody></table><br/><p id='finalContainer'></p>";
+      endTable += "</tbody></table><br/><p id='finalContainer'></p><p id='penContainer'></p>";
       // Inserts table in document
       document.getElementsByTagName("body")[0].innerHTML = endTable;
       document.getElementById("finalContainer").style.backgroundColor = "#fff";
       document.getElementById("finalContainer").style.color = "#000";
       document.getElementById("finalContainer").style.padding = "5px";
       document.getElementById("finalContainer").innerHTML = timeTable;
+      // Check for penalty shootout and address it
+      if (penalties === true) {
+        for (i = 0; i < roster.length; i++) {
+          penGoals.push(0);
+          penAttempts.push(0);
+        }
+        penTable = "";
+        for (reps = 0; reps < roster.length; reps++) {
+          for (i = 0; i < shooters.length; i++) {
+            if (reps == shooters[i]) {
+              penAttempts[reps]++;
+              if (results[i] === 0) {
+                // Do nothing, 0 means they missed or were blocked
+              } else if (results[i] == 1) {
+                // Add a goal, 1 means they scored
+                penGoals[reps]++;
+              }
+            }
+          }
+        }
+        penTable = "<table><thead><tr><th>Player</th><th>Number</th><th>Penalty Attempts/Penalty Goals</th></tr></thead><tbody>";
+        for (reps = 0; reps < roster.length; reps++) {
+          penTable += "<tr><td>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td>" + penAttempts[reps] + "/" + penGoals[reps] + "</td></tr>";
+        }
+        penTable += "</tbody><table>";
+        document.getElementById("penContainer").innerHTML = String(penTable);
+      }
     }
