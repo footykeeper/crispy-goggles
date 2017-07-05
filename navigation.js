@@ -4,12 +4,12 @@
 var links = [
   {
     name: "Home",
-    url: "/index"
+    url: "index"
   },
   
   {
     name: "Keeper",
-    url: "/keeper"
+    url: "keeper"
   }
   
   /*
