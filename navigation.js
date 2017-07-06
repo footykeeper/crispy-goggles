@@ -1,3 +1,7 @@
+// Created by footykeeper Copyright (c) 2017
+// View orginal source code: https://github.com/footykeeper/crispy-goggles
+// View license: https://github.com/footykeeper/crispy-goggles/blob/master/LICENSE.txt
+// View website: http://footykeeper.com
 // This is navigation.js. This Javascript is designed to fill in the navigation links on every page. Because updating every page would be a hassle, all you have to do is add a new object to the links array, and every page with this script linked will automatically update.
 // Links to be made navigation buttons
 // To add a button, just add another object to the array
