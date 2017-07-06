@@ -14,6 +14,16 @@ var links = [
   {
     name: "Keeper",
     url: "keeper"
+  },
+  
+  {
+    name: "Messi Edition",
+    url: "messi"
+  },
+  
+  {
+    name: "Ronaldo Edition",
+    url: "ronaldo"
   }
   
   /*
