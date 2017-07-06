@@ -5,4 +5,4 @@ Designed for football/soccer teams, this web app works with primarily Javascript
 
 [GitHub Page](https://footykeeper.github.io/crispy-goggles/)
 
-[License: Mozilla Public License Version 2.0](https://github.com/footykeeper/crispy-goggles/blob/master/LICENSE.txt_
+[License: Mozilla Public License Version 2.0](https://github.com/footykeeper/crispy-goggles/blob/master/LICENSE.txt)
