@@ -19,7 +19,7 @@ var links = [
   /*
   {
     name: "About Us",
-    url: "http://footykeeper.com/about.html"
+    url: "about"
   }
   */
 ];
