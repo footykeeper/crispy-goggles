@@ -2,10 +2,17 @@
 <html>
 <head>
   <title>footykeeper</title>
-  <link rel="stylesheet" type="text/css" href="https://footykeeper.github.io/crispy-goggles/keeper.css"/>
   <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="https://footykeeper.github.io/crispy-goggles/main.css"/>
+  <link rel="stylesheet" type="text/css" href="https://footykeeper.github.io/crispy-goggles/keeper.css"/>
 </head>
-<body>
+<body onload="selectWallpaper()">
+  <table id="navigation" class="nav-table">
+    <tr id="targetRow">
+      <!-- To be filled in by Javascript -->
+    </tr>
+  </table>
+  <br/>
   <div id="containerOne">
     <input type="text" placeholder="Your team's player count" id="playerCount">
     <input type="text" id="teamName" placeholder="Your team's name">
@@ -24,9 +31,9 @@
     <br id="memez">
     <button onclick="createTable()" id="createTableButton">Begin</button>
   </div>
-  <table>
-    <thead></thead>
-    <tbody></tbody>
+  <table id="rosterTable">
+    <thead id="rosterHead"></thead>
+    <tbody id="rosterBody"></tbody>
   </table>
   <p id="displayTime"></p>
   <div id="containerTwo"></div>
@@ -35,5 +42,6 @@
   <p id="advancePrompt"></p>
   <div id="goalPrompt"></div>
   <script src="https://footykeeper.github.io/crispy-goggles/keeper.js"></script>
+  <script src="https://footykeeper.github.io/crispy-goggles/navigation.js"></script>
 </body>
 </html>
