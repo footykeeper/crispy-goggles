@@ -1,3 +1,12 @@
+    .body {    
+      background-image: url("http://yesofcorsa.com/wp-content/uploads/2015/08/1713_soccer.jpg");
+      background-size: cover;
+      background-position: center center;
+      background-attachment: fixed;
+      color: #000;
+      font-family: Courier;
+    }
+
     .title {
       background-color: #fff;
       text-align: center;
