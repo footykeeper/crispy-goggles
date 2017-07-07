@@ -76,7 +76,7 @@
       }
     ];
     var santiago = null;
-    function onLoadScript () {
+    function selectWallpaper () {
       wallpaperChoice = prompt("Which wallpaper would you like? You may choose 'STANDARD', 'MESSI', 'RONALDO', 'NEYMAR', 'IBRAHIMOVIC', 'ROONEY', or 'SUAREZ'. Please spell names letter-for-letter, however, it is not case-sensitive.");
       for (i = 0; i < wallpapers.length; i++) {
         if (wallpapers[i].name == wallpaperChoice.toLowerCase()) {
@@ -92,6 +92,7 @@
           selectWallpaper();
         }
       }
+      createLinks();
     }
     
     function createTable () {
@@ -102,8 +103,11 @@
       tomat = document.getElementById("halfLength");
       halfLength = tomat.value;
       document.getElementsByTagName("title")[0].innerHTML = teamName + " || footykeeper";
-      document.getElementById("rosterHead")[0].innerHTML = "<tr><th>Player</th><th>Number</th><th>Position</th></tr>";
-      document.getElementById("rosterBody").innerHTML = playerRow.repeat(players);
+      document.getElementById("rosterHead").innerHTML = "<tr><th>Player</th><th>Number</th><th>Position</th></tr>";
+      for (i = 0; i < players; i++) {
+        document.getElementById("rosterBody").innerHTML += playerRow;
+      }
+      // document.getElementById("rosterBody").innerHTML = playerRow.repeat(players);
       document.getElementById("advancePrompt").innerHTML = "<span class='white'>When you are done inputing your roster and the referee has blown the starting whistle, click advance.</span><br/><br/><button onclick='prepForStart()'>Advance</button>";
       // Remove the start button and player count input
       papaya.removeChild(document.getElementById("teamName"));
