@@ -73,12 +73,24 @@
         name: "neymar",
         url: "http://wallpapercave.com/wp/wc1697553.jpg",
         credit: "Wallpaper Cave"
+      },
+      
+      {
+        name: "bale",
+        url: "http://wallpapersdsc.net/wp-content/uploads/2016/01/Gareth-Bale-Wallpapers.jpg",
+        credit: "Wallpaper Cave"
       }
     ];
 
+    var asdf = null;
     var santiago = null;
     function selectWallpaper () {
-      wallpaperChoice = prompt("Which wallpaper would you like? You may choose 'STANDARD', 'MESSI', 'RONALDO', 'NEYMAR', 'IBRAHIMOVIC', 'ROONEY', or 'SUAREZ'. Please spell names letter-for-letter, however, it is not case-sensitive.");
+      asdf = "Which wallpaper would you like? Options: ";
+      for (i = 0; i < wallpapers.length; i++) {
+        asdf += "'" + wallpapers[i].name.toUpperCase() + "' ";
+      }
+      wallpaperChoice = prompt(asdf);
+      // wallpaperChoice = prompt("Which wallpaper would you like? You may choose 'STANDARD', 'MESSI', 'RONALDO', 'NEYMAR', 'IBRAHIMOVIC', 'ROONEY', or 'SUAREZ'. Please spell names letter-for-letter, however, it is not case-sensitive.");
       for (i = 0; i < wallpapers.length; i++) {
         if (wallpapers[i].name == wallpaperChoice.toLowerCase()) {
           document.getElementsByTagName("body")[0].style.backgroundImage = "url('" + String(wallpapers[i].url) + "')";
