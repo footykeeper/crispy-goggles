@@ -46,6 +46,12 @@
       },
       
       {
+        name: "original",
+        url: "http://yesofcorsa.com/wp-content/uploads/2015/08/1713_soccer.jpg",
+        credit: "WHQ: Wallpapers High Quality"
+      },
+      
+      {
         name: "ibrahimovic",
         url: "http://www.hdwallpaper.nu/wp-content/uploads/2016/01/zlatan_ibrahimovic_wallpaper_93600.jpg",
         credit: "HDWallpaper.nu"
