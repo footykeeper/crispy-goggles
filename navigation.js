@@ -7,22 +7,22 @@
 var links = [
   {
     name: "Home",
-    url: "index"
+    url: "index.html"
   },
   
   {
     name: "Keeper",
-    url: "keeper"
+    url: "keeper.html"
   },
   
   {
     name: "Messi Edition",
-    url: "messi"
+    url: "messi.html"
   },
   
   {
     name: "Ronaldo Edition",
-    url: "ronaldo"
+    url: "ronaldo.html"
   }
   
   /*
