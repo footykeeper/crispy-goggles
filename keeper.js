@@ -46,6 +46,12 @@
       },
       
       {
+        name: "original",
+        url: "http://yesofcorsa.com/wp-content/uploads/2015/08/1713_soccer.jpg",
+        credit: "WHQ: Wallpapers High Quality"
+      },
+      
+      {
         name: "ibrahimovic",
         url: "http://www.hdwallpaper.nu/wp-content/uploads/2016/01/zlatan_ibrahimovic_wallpaper_93600.jpg",
         credit: "HDWallpaper.nu"
@@ -69,7 +75,7 @@
         credit: "Wallpaper Cave"
       }
     ];
-    
+
     var santiago = null;
     function selectWallpaper () {
       wallpaperChoice = prompt("Which wallpaper would you like? You may choose 'STANDARD', 'MESSI', 'RONALDO', 'NEYMAR', 'IBRAHIMOVIC', 'ROONEY', or 'SUAREZ'. Please spell names letter-for-letter, however, it is not case-sensitive.");
@@ -83,8 +89,11 @@
         redoSelection = false;
       } else if (redoSelection) {
         santiago = prompt("Your input was either not valid or processed incorrectly. Would you like to try again? 'YES' or 'NO', please.");
-        
+        if (santiago.toLowerCase() == "yes") {
+          selectWallpaper();
+        }
       }
+      createLinks();
     }
     
     function createTable () {
@@ -95,8 +104,11 @@
       tomat = document.getElementById("halfLength");
       halfLength = tomat.value;
       document.getElementsByTagName("title")[0].innerHTML = teamName + " || footykeeper";
-      document.getElementsByTagName("thead")[0].innerHTML = "<tr><th>Player</th><th>Number</th><th>Position</th></tr>";
-      document.getElementsByTagName("tbody")[0].innerHTML = playerRow.repeat(players);
+      document.getElementById("rosterHead").innerHTML = "<tr><th>Player</th><th>Number</th><th>Position</th></tr>";
+      for (i = 0; i < players; i++) {
+        document.getElementById("rosterBody").innerHTML += playerRow;
+      }
+      // document.getElementById("rosterBody").innerHTML = playerRow.repeat(players);
       document.getElementById("advancePrompt").innerHTML = "<span class='white'>When you are done inputing your roster and the referee has blown the starting whistle, click advance.</span><br/><br/><button onclick='prepForStart()'>Advance</button>";
       // Remove the start button and player count input
       papaya.removeChild(document.getElementById("teamName"));
