@@ -1,5 +1,3 @@
-/* This CSS file is specially designed for keeper.html */
-
     select, option {
       background-color: #fff;
       border: none;
@@ -47,4 +45,3 @@
       padding: 5px;
       border-radius: 5px;
     }
-
