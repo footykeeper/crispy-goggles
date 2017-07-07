@@ -30,6 +30,63 @@
     var players = null;
     // Just a random name to store a document.getElementById value
     var papaya = null;
+    var wallpaperChoice = null;
+    var redoSelection = true;
+    var wallpapers = [
+      {
+        name: "messi",
+        url: "http://99pcwallpapers.com/wp-content/uploads/lionel-messi-black-and-white-wallpaper.jpg",
+        credit: "99 PC Wallpapers"
+      },
+      
+      {
+        name: "ronaldo",
+        url: "https://images6.alphacoders.com/614/614633.jpg",
+        credit: "Wallpaper Abyss"
+      },
+      
+      {
+        name: "ibrahimovic",
+        url: "http://www.hdwallpaper.nu/wp-content/uploads/2016/01/zlatan_ibrahimovic_wallpaper_93600.jpg",
+        credit: "HDWallpaper.nu"
+      },
+      
+      {
+        name: "suarez",
+        url: "http://www.hdwallpaper.nu/wp-content/uploads/2016/01/luis_suarez_wallpaper_1452.jpg",
+        credit: "HDWallpaper.nu"
+      },
+      
+      {
+        name: "rooney",
+        url: "http://wallpapercave.com/wp/wc1672951.jpg",
+        credit: "Wallpaper Cave"
+      },
+      
+      {
+        name: "neymar",
+        url: "http://wallpapercave.com/wp/wc1697553.jpg",
+        credit: "Wallpaper Cave"
+      }
+    ];
+    var santiago = null;
+    function onLoadScript () {
+      wallpaperChoice = prompt("Which wallpaper would you like? You may choose 'STANDARD', 'MESSI', 'RONALDO', 'NEYMAR', 'IBRAHIMOVIC', 'ROONEY', or 'SUAREZ'. Please spell names letter-for-letter, however, it is not case-sensitive.");
+      for (i = 0; i < wallpapers.length; i++) {
+        if (wallpapers[i].name == wallpaperChoice.toLowerCase()) {
+          document.getElementsByTagName("body")[0].style.backgroundImage = "url('" + String(wallpapers[i].url) + "')";
+          alert("You have selected the " + wallpapers[i].name + " wallpaper, from " + wallpapers[i].credit);
+          redoSelection = false;
+        }
+      } if (wallpaperChoice.toLowerCase() == "standard") {
+        redoSelection = false;
+      } else if (redoSelection) {
+        santiago = prompt("Your input was either not valid or processed incorrectly. Would you like to try again? 'YES' or 'NO', please.");
+        if (santiago.toLowerCase() == "yes") {
+          selectWallpaper();
+        }
+      }
+    }
     
     function createTable () {
       // Get the player count based on user input
@@ -39,8 +96,8 @@
       tomat = document.getElementById("halfLength");
       halfLength = tomat.value;
       document.getElementsByTagName("title")[0].innerHTML = teamName + " || footykeeper";
-      document.getElementsByTagName("thead")[0].innerHTML = "<tr><th>Player</th><th>Number</th><th>Position</th></tr>";
-      document.getElementsByTagName("tbody")[0].innerHTML = playerRow.repeat(players);
+      document.getElementById("rosterHead")[0].innerHTML = "<tr><th>Player</th><th>Number</th><th>Position</th></tr>";
+      document.getElementById("rosterBody").innerHTML = playerRow.repeat(players);
       document.getElementById("advancePrompt").innerHTML = "<span class='white'>When you are done inputing your roster and the referee has blown the starting whistle, click advance.</span><br/><br/><button onclick='prepForStart()'>Advance</button>";
       // Remove the start button and player count input
       papaya.removeChild(document.getElementById("teamName"));
