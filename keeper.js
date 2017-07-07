@@ -62,6 +62,12 @@
         url: "http://www.hdwallpaper.nu/wp-content/uploads/2016/01/luis_suarez_wallpaper_1452.jpg",
         credit: "HDWallpaper.nu"
       },
+        
+      {
+        name: "benzema",
+        url: "http://wallpapercave.com/wp/jWSNtKJ.jpg",
+        credit: "Wallpaper Cave"
+      },
       
       {
         name: "rooney",
