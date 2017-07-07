@@ -30,9 +30,12 @@
       link = "";
 
       // Add navigation buttons
-      for (i = 0; i < links.length; i++) {
-        link += "<td class='nav-button'><a href='" + links[i].url + "' class='plain-link'>" + links[i].name + "</a></td><td class='null'></td>";
+      for (i = 0; i < links.length - 1; i++) {
+        link += "<td class='nav-button'><a href='" + links[i].url + "' class='plain-link'>" + links[i].name + "</a></td><div class='horizontal10'></div>";
+        // document.getElementsByClassName("null")[i].style.opacity = "0";
       }
+      link += "<td class='nav-button'><a href='" + links[i].url + "' class='plain-link'>" + links[i].name + "</a></td>";
+      
       // Fill in the table with the links
       document.getElementById("targetRow").innerHTML = link;
     }
