@@ -75,6 +75,7 @@
         credit: "Wallpaper Cave"
       }
     ];
+
     var santiago = null;
     function selectWallpaper () {
       wallpaperChoice = prompt("Which wallpaper would you like? You may choose 'STANDARD', 'MESSI', 'RONALDO', 'NEYMAR', 'IBRAHIMOVIC', 'ROONEY', or 'SUAREZ'. Please spell names letter-for-letter, however, it is not case-sensitive.");
