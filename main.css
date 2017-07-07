@@ -56,8 +56,10 @@
       height: 50px;
     } .spacer25 {
       height: 25px;
+    } .horizontal10 {
+      width: 5px;
     }
 
-    .null, td.null {
+    .null {
       opacity: 0;
     }
