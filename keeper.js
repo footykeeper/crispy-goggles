@@ -56,6 +56,12 @@
         url: "http://www.hdwallpaper.nu/wp-content/uploads/2016/01/zlatan_ibrahimovic_wallpaper_93600.jpg",
         credit: "HDWallpaper.nu"
       },
+        
+      {
+        name: "ozil",
+        url: "http://img15.deviantart.net/e64e/i/2016/342/9/8/mesut_ozil_wallpaper_2016_17_by_eduart03-daqxvm5.png",
+        credit: "Deviant Art"
+      },
       
       {
         name: "suarez",
