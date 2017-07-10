@@ -167,9 +167,9 @@
       userInput = "<table><tbody>";
       for (i = 0; i < roster.length; i++) {
         if (i % 3 === 0) {
-          userInput += "<tr><td><div class='playerInput' id='player" + i + "'><p>" + roster[i] + "</p><select class='eventSelect'><option hidden value='hidden'>Select Event</option><option value='0'>Goal</option><option value='1'>Assist</option><option value='2'>Foul (no card)</option><option value='3'>Yellow Card</option><option value='4'>Second Yellow</option><option value='5'>Red Card</option></select></div></td>";
+          userInput += "<tr><td><div class='playerInput'><p>" + roster[i] + "</p><select class='eventSelect'><option hidden value='hidden'>Select Event</option><option value='goal'>Goal</option><option value='assists'>Assist</option><option value='fouls'>Foul (no card)</option><option value='yellowCards'>Yellow Card</option><option value='secondYellows'>Second Yellow</option><option value='redCards'>Red Card</option></select></div></td>";
         } else if (i % 3 !== 0) {
-          userInput += "<td><div class='playerInput'><p>" + roster[i] + "</p><select class='eventSelect'><option hidden value='hidden'>Select Event</option><option value='0'>Goal</option><option value='1'>Assist</option><option value='2'>Foul (no card)</option><option value='3'>Yellow Card</option><option value='4'>Second Yellow</option><option value='5'>Red Card</option></select></div></td>";
+          userInput += "<td><div class='playerInput'><p>" + roster[i] + "</p><select class='eventSelect'><option hidden value='hidden'>Select Event</option><option value='goal'>Goal</option><option value='assists'>Assist</option><option value='fouls'>Foul (no card)</option><option value='yellowCards'>Yellow Card</option><option value='secondYellows'>Second Yellow</option><option value='redCards'>Red Card</option></select></div></td>";
         }
       }
       userInput += "</tr></tbody></table><br/><br/><button onclick='submitEvent()'>Submit Events</button>";
@@ -294,28 +294,56 @@
     var goalCount = 0;
     var events = [
       // Goals
-      [],
+      {
+        jar: [],
+        times: [],
+        name: "goals"
+      },
       // Assists
-      [],
+      {
+        jar: [],
+        times: [],
+        name: "assists"
+      },
       // Fouls
-      [],
+      {
+        jar: [],
+        times: [],
+        name: "fouls"
+      },
       // Yellow cards
-      [],
+      {
+        jar: [],
+        times: [],
+        name: "yellowCards"
+      },
       // Second yellows
-      [],
+      {
+        jar: [],
+        times: [],
+        name: "secondYellows"
+      },
       // Red cards
-      []
+      {
+        jar: [],
+        times: [],
+        name: "redCards"
+      }
     ];
     
     function submitEvent () {
-      alert("358");
+      //alert("358");
       for (i = 0; i < roster.length; i++) {
-        alert("360");
-        if (document.getElementsByClassName("playerInput")[i].value !== "hidden") {
-          alert("362");
-          // BUGGED events[document.getElementsByClassName("playerInput").value].push(i);
+        //alert("360");
+        if (document.getElementsByClassName("eventSelect")[i].value !== "hidden") {
+          for (reps = 0; reps < events.length; reps++) {
+            if (document.getElementsByClassName("eventSelect")[i].value == events[reps].name) {
+              events[reps].jar.push(document.getElementsByClassName("eventSelect")[i].value);
+            }
+          }
         }
       }
+      alert(events[0].jar);
     }
 
     function submitGoal () {
