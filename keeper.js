@@ -149,15 +149,12 @@
     // Empty array to be filled with player numbers
     var numbers = [];
     var rosterReps = null;
+    var userInput = null;
     
     function prepForStart () {
       date = new Date();
       startTime = date.getTime();
       displayStartTime = date;
-      document.getElementById("displayTime").style.color = "#000";
-      document.getElementById("displayTime").style.padding = "5px";
-      document.getElementById("displayTime").style.backgroundColor = "#fff";
-      document.getElementById("displayTime").style.borderRadius = "5px";
       document.getElementById("displayTime").innerHTML = "Start time: " + displayStartTime;
       for (rosterReps = 0; rosterReps < players; rosterReps++) {
         // Gets a player name from a row on the input table
@@ -165,8 +162,25 @@
         // Gets a player number from a row on the input table
         numbers.push(document.getElementsByClassName("pNumber")[rosterReps].value);
         // Creates a button that allows user to advance from table input
-        document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved, and the game has begun! Press 'GOAL!' when your team scores, or press 'END HALF' when the half is over.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='endHalf()'>END HALF</button>";
+        document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved, and the game has begun! Use the player-specific inputs to save bookings, fouls, and goals, or press 'END HALF' when the half is over.</span><br/><br/><button onclick='endHalf()'>END HALF</button>";
       }
+      userInput = "<table><tbody>";
+      for (i = 0; i < roster.length; i++) {
+        if (i % 3 === 0) {
+          userInput += "<tr><td><div class='playerInput' id='player" + i + "'><p>" + roster[i] + "</p><select class='eventSelect'><option hidden value='hidden'>Select Event</option><option value='0'>Goal</option><option value='1'>Assist</option><option value='2'>Foul (no card)</option><option value='3'>Yellow Card</option><option value='4'>Second Yellow</option><option value='5'>Red Card</option></select></div></td>";
+        } else if (i % 3 !== 0) {
+          userInput += "<td><div class='playerInput'><p>" + roster[i] + "</p><select class='eventSelect'><option hidden value='hidden'>Select Event</option><option value='0'>Goal</option><option value='1'>Assist</option><option value='2'>Foul (no card)</option><option value='3'>Yellow Card</option><option value='4'>Second Yellow</option><option value='5'>Red Card</option></select></div></td>";
+        }
+      }
+      userInput += "</tr></tbody></table><br/><br/><button onclick='submitEvent()'>Submit Events</button>";
+      document.getElementById("goalPrompt").innerHTML = String(userInput);
+      document.getElementById("rosterTable").removeChild(document.getElementById("rosterBody"));
+      document.getElementById("rosterTable").removeChild(document.getElementById("rosterHead"));
+      document.getElementById("displayTime").style.color = "#000";
+      document.getElementById("displayTime").style.padding = "5px";
+      document.getElementById("displayTime").style.backgroundColor = "#fff";
+      document.getElementById("displayTime").style.borderRadius = "5px";
+      document.getElementById("displayTime").innerHTML = "Start time: " + displayStartTime;
     }
     
     function endHalf () {
@@ -278,7 +292,32 @@
     var assists = [];
     // Added to each time a goal is submitted
     var goalCount = 0;
+    var events = [
+      // Goals
+      [],
+      // Assists
+      [],
+      // Fouls
+      [],
+      // Yellow cards
+      [],
+      // Second yellows
+      [],
+      // Red cards
+      []
+    ];
     
+    function submitEvent () {
+      alert("358");
+      for (i = 0; i < roster.length; i++) {
+        alert("360");
+        if (document.getElementsByClassName("playerInput")[i].value !== "hidden") {
+          alert("362");
+          // BUGGED events[document.getElementsByClassName("playerInput").value].push(i);
+        }
+      }
+    }
+
     function submitGoal () {
       // Accesses user input
       scorers.push(document.getElementById("goalScorer").value);
