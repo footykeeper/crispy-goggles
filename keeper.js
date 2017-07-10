@@ -286,13 +286,14 @@
       document.getElementById("goalPrompt").innerHTML = String(dropdown);
     }
     
-    // To be filled in later
-    var scorers = [];
-    // To be filled in later
+    var goals = [];
     var assists = [];
-    // Added to each time a goal is submitted
+    var fouls = [];
+    var yellowCards = [];
+    var secondYellows = [];
+    var redCards = [];
     var goalCount = 0;
-    var events = [
+    /*var events = [
       // Goals
       {
         jar: [],
@@ -329,21 +330,32 @@
         times: [],
         name: "redCards"
       }
-    ];
+    ];*/
+
+    var fidgetSpinner = null;
     
     function submitEvent () {
       //alert("358");
       for (i = 0; i < roster.length; i++) {
+        fidgetSpinner = document.getElementsByClassName("eventSelect")[i].value;
         //alert("360");
-        if (document.getElementsByClassName("eventSelect")[i].value !== "hidden") {
-          for (reps = 0; reps < events.length; reps++) {
-            if (document.getElementsByClassName("eventSelect")[i].value == events[reps].name) {
-              events[reps].jar.push(document.getElementsByClassName("eventSelect")[i].value);
-            }
+        if (fidgetSpinner !== "hidden") {
+          if (fidgetSpinner === 0) {
+            goals.push(i);
+          } else if (fidgetSpinner == 1) {
+            assists.push(i);
+          } else if (fidgetSpinner == 2) {
+            fouls.push(i);
+          } else if (fidgetSpinner == 3) {
+            yellowCards.push(i);
+          } else if (fidgetSpinner == 4) {
+            secondYellows.push(i);
+          } else if (fidgetSpinner == 5) {
+            redCards.push(i);
           }
         }
       }
-      alert(events[0].jar);
+      alert(goals + assists + fouls);
     }
 
     function submitGoal () {
