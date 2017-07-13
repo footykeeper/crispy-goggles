@@ -324,14 +324,18 @@
     // Only some have times involved, as they are more important than others
     var goals = [];
     var goalTimes = [];
+    var goalsInOrder = [];
     var assists = [];
     var fouls = [];
     var yellowCards = [];
+    var yellowCardsInOrder = [];
     var yellowCardTimes = [];
     var secondYellows = [];
     var secondYellowTimes = [];
+    var secondYellowsInOrder = [];
     var redCards = [];
     var redTimes = [];
+    var redCardsInOrder = [];
     var goalCount = 0;
     var fidgetSpinner = null;
     // var pushMe = null;
@@ -365,20 +369,24 @@
           if (document.getElementsByClassName("eventSelect")[i].value == "goals") {
             goals[i]++;
             goalTimes.push(elapsedTools.elapsedMinutes);
+            goalsInOrder.push(i);
           } else if (document.getElementsByClassName("eventSelect")[i].value == "assists") {
             assists[i]++;
           } else if (document.getElementsByClassName("eventSelect")[i].value == "fouls") {
             fouls[i]++;
           } else if (document.getElementsByClassName("eventSelect")[i].value == "yellowCards") {
             yellowCards[i]++;
+            yellowCardsInOrder.push(i);
             yellowCardTimes.push(elapsedTools.elapsedMinutes);
           } else if (document.getElementsByClassName("eventSelect")[i].value == "secondYellows") {
             secondYellows[i]++;
             yellowCards[i]++;
+            secondYellowsInOrder.push(i);
             secondYellowTimes.push(elapsedTools.elapsedMinutes);
           } else if (document.getElementsByClassName("eventSelect")[i].value == "redCards") {
             redCards[i]++;
             redTimes.push(elapsedTools.elapsedMinutes);
+            redCardsInOrder.push(i);
           }
         }
       }
@@ -474,8 +482,29 @@
     var penAttempts = [];
 
     function endGame () {
-      // Calls the monstrous function just above
-      // assignGoals();
+      timeTable = "";
+      if (goalTimes.length > 0) {
+        timeTable += "<p>Goals:</p> <br/><table><tbody>";
+        for (i = 0; i < goalTimes.length; i++) {
+          timeTable += "<tr><td><p>" + goalTimes[i] + ": " + roster[goalsInOrder[i]] + " scored.</p></td></tr>";
+        }
+        timeTable += "</tbody></table>";
+      }
+      
+      if (yellowCardTimes.length > 0) {
+        timeTable += "<p>Yellow Cards:</p> <br/><table><tbody>";
+        for (i = 0; i < yellowCardTimes.length; i ++) {
+          timeTable += "<tr><td><p>" + yellowCardTimes[i] + ": " + roster[yellowCardsInOrder[i]] + " received a yellow card.</p></td></tr>";
+        }
+        timeTable += "</tbody></table>";
+      }
+      
+      if (secondYellowTimes.length > 0) {
+        timeTable += "<p>Second Yellow Cards:</p> <br/><table><tbody>";
+        for (i = 0; i < secondYellowTimes.length; i++) {
+          timeTable += "<tr><td><p>" + secondYellowTimes[i] + roster[yellowCardsInOrder[i]];
+        }
+      }
       // Creates table displaying each player, their number, and their amount of goals/assists.
       for (reps = 0; reps < roster.length; reps++) {
         endTable += "<tr><td>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td>" + goals[reps] + "</td><td>" + assists[reps] + "</td><td>" + fouls[reps] + "</td><td>" + yellowCards[reps] + "</td><td>" + redCards[reps];
