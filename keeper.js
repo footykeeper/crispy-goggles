@@ -500,10 +500,19 @@
       }
       
       if (secondYellowTimes.length > 0) {
-        timeTable += "<p>Second Yellow Cards:</p> <br/><table><tbody>";
+        timeTable += "<p>Second Yellow Cards:</p><br/><table><tbody>";
         for (i = 0; i < secondYellowTimes.length; i++) {
-          timeTable += "<tr><td><p>" + secondYellowTimes[i] + roster[yellowCardsInOrder[i]];
+          timeTable += "<tr><td><p>" + secondYellowTimes[i] + ": " + roster[yellowCardsInOrder[i]] + " received their second yellow card.</p></td></tr>";
         }
+        timeTable += "</tboby></table>";
+      }
+      
+      if (redTimes.length > 0) {
+        timeTable += "<p>Red Cards:</p><br/><table><tbody>";
+        for (i = 0; i < redTimes.length; i++) {
+          timeTable += "<tr><td><p>" + redTimes[i] + ": " + roster[yellowCardsInOrder[i]] + " received a red card.</p></td></tr>";
+        }
+        timeTable += "</tbody></table>";
       }
       // Creates table displaying each player, their number, and their amount of goals/assists.
       for (reps = 0; reps < roster.length; reps++) {
