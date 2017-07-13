@@ -2,12 +2,6 @@
     // View orginal source code: https://github.com/footykeeper/crispy-goggles
     // View website: http://footykeeper.com
 
-    // Run onload functions
-    $(document).ready(function () {
-      selectWallpaper();
-      createLinks();
-    });
-
     var teamName = null;
     var penalties = false;
     var date = null;
@@ -130,6 +124,7 @@
           selectWallpaper();
         }
       }
+      createLinks();
     }
     
     function createTable () {
