@@ -124,6 +124,7 @@
           selectWallpaper();
         }
       }
+      createLinks();
     }
     
     function createTable () {
