@@ -2,10 +2,6 @@
     // View orginal source code: https://github.com/footykeeper/crispy-goggles
     // View website: http://footykeeper.com
     
-    $(document).ready(function () {
-      selectWallpaper();
-    });
-
     var teamName = null;
     var penalties = false;
     var date = null;
