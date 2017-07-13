@@ -1,6 +1,13 @@
     // Created by footykeeper Copyright (c) 2017
     // View orginal source code: https://github.com/footykeeper/crispy-goggles
     // View website: http://footykeeper.com
+
+    // Run onload functions
+    $(document).ready(function () {
+      selectWallpaper();
+      createLinks();
+    });
+
     var teamName = null;
     var penalties = false;
     var date = null;
@@ -96,6 +103,7 @@
 
     var asdf = null;
     var santiago = null;
+    var qqqq = null;
     function selectWallpaper () {
       asdf = "Which wallpaper would you like? Options: ";
       for (i = 0; i < wallpapers.length; i++) {
@@ -106,10 +114,15 @@
       for (i = 0; i < wallpapers.length; i++) {
         if (wallpapers[i].name == wallpaperChoice.toLowerCase()) {
           document.getElementsByTagName("body")[0].style.backgroundImage = "url('" + String(wallpapers[i].url) + "')";
-          alert("You have selected the " + wallpapers[i].name + " wallpaper, from " + wallpapers[i].credit);
+          alert("You have selected the " + wallpapers[i].name + " wallpaper, from " + wallpapers[i].credit + ".");
           redoSelection = false;
         }
       } if (wallpaperChoice.toLowerCase() == "standard") {
+        redoSelection = false;
+      } else if (wallpaperChoice.toLowerCase() == "random") {
+        qqqq = Math.random(0, wallpapers.length);
+        document.getElementsByTagName("body")[0].style.backgroundImage = "url('" + String(wallpapers[qqqq].url) + "')";
+        alert("You have selected the " + wallpapers[i].name + " wallpaper, from " + wallpapers[qqqq].credit + ".");
         redoSelection = false;
       } else if (redoSelection) {
         santiago = prompt("Your input was either not valid or processed incorrectly. Would you like to try again? 'YES' or 'NO', please.");
@@ -117,7 +130,6 @@
           selectWallpaper();
         }
       }
-      createLinks();
     }
     
     function createTable () {
@@ -135,6 +147,15 @@
       // document.getElementById("rosterBody").innerHTML = playerRow.repeat(players);
       document.getElementById("advancePrompt").innerHTML = "<span class='white'>When you are done inputing your roster and the referee has blown the starting whistle, click advance.</span><br/><br/><button onclick='prepForStart()'>Advance</button>";
       // Remove the start button and player count input
+      $('#teamName').remove();
+      $('#halfLength').remove();
+      $('#playerCount').remove();
+      $('#createTableButton').remove();
+      $('#pepe').remove();
+      $('#roblox').remove();
+      $('#shrek').remove();
+      $('#memez').remove();
+      /*
       papaya.removeChild(document.getElementById("teamName"));
       papaya.removeChild(document.getElementById("halfLength"));
       papaya.removeChild(document.getElementById("playerCount"));
@@ -143,44 +164,63 @@
       papaya.removeChild(document.getElementById("roblox"));
       papaya.removeChild(document.getElementById("shrek"));
       papaya.removeChild(document.getElementById("memez"));
+      */
     }
     // Empty array to be filled with player names
     var roster = [];
     // Empty array to be filled with player numbers
     var numbers = [];
     var rosterReps = null;
+    var userInput = null;
     
     function prepForStart () {
       date = new Date();
       startTime = date.getTime();
       displayStartTime = date;
-      document.getElementById("displayTime").style.color = "#000";
-      document.getElementById("displayTime").style.padding = "5px";
-      document.getElementById("displayTime").style.backgroundColor = "#fff";
-      document.getElementById("displayTime").style.borderRadius = "5px";
       document.getElementById("displayTime").innerHTML = "Start time: " + displayStartTime;
       for (rosterReps = 0; rosterReps < players; rosterReps++) {
         // Gets a player name from a row on the input table
         roster.push(document.getElementsByClassName("pName")[rosterReps].value);
         // Gets a player number from a row on the input table
         numbers.push(document.getElementsByClassName("pNumber")[rosterReps].value);
-        // Creates a button that allows user to advance from table input
-        document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved, and the game has begun! Press 'GOAL!' when your team scores, or press 'END HALF' when the half is over.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='endHalf()'>END HALF</button>";
       }
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Your team is saved, and the game has begun! Use the player-specific inputs to save bookings, fouls, and goals, or press 'END HALF' when the half is over.</span><br/><br/><button onclick='endHalf()'>END HALF</button>";
+      userInput = "<table><tbody>";
+      for (i = 0; i < roster.length; i++) {
+        if (i % 3 === 0) {
+          userInput += "<tr><td><div class='playerInput'><p>" + roster[i] + "</p><select class='eventSelect'><option hidden value='hidden'>Select Event</option><option value='goals'>Goal</option><option value='assists'>Assist</option><option value='fouls'>Foul (no card)</option><option value='yellowCards'>Yellow Card</option><option value='secondYellows'>Second Yellow</option><option value='redCards'>Red Card</option></select></div></td>";
+        } else if (i % 3 !== 0) {
+          userInput += "<td><div class='playerInput'><p>" + roster[i] + "</p><select class='eventSelect'><option hidden value='hidden'>Select Event</option><option value='goal'>Goal</option><option value='assists'>Assist</option><option value='fouls'>Foul (no card)</option><option value='yellowCards'>Yellow Card</option><option value='secondYellows'>Second Yellow</option><option value='redCards'>Red Card</option></select></div></td>";
+        }
+      }
+      userInput += "</tr></tbody></table><br/><br/><button onclick='submitEvent()'>Submit Events</button>";
+      document.getElementById("goalPrompt").innerHTML = String(userInput);
+      $('rosterBody').remove();
+      $('rosterHead').remove();
+      // document.getElementById("rosterTable").removeChild(document.getElementById("rosterBody"));
+      // document.getElementById("rosterTable").removeChild(document.getElementById("rosterHead"));
+      document.getElementById("displayTime").style.color = "#000";
+      document.getElementById("displayTime").style.padding = "5px";
+      document.getElementById("displayTime").style.backgroundColor = "#fff";
+      document.getElementById("displayTime").style.borderRadius = "5px";
+      document.getElementById("displayTime").innerHTML = "Start time: " + displayStartTime;
     }
     
     function endHalf () {
+      $('#goalPrompt').hide();
       document.getElementById("advancePrompt").innerHTML = "";
       document.getElementById("containerTwo").innerHTML = "";
       document.getElementById("containerFour").innerHTML = "<button onclick='nextHalf()' id='nextHalfButton'>Begin next half</button>";
     }
     
     function nextHalf() {
+      $('#goalPrompt').show();
       document.getElementById("displayTime").innerHTML += "<br/>Second half start time: " + new Date();
       document.getElementById("containerFour").removeChild(document.getElementById("nextHalfButton"));
       startTime = new Date().getTime();
       half = 1;
-      document.getElementById("advancePrompt").innerHTML = "<span class='white'>The second half has begun! Press 'GOAL!' when your team scores, press 'BEGIN EXTRA TIME', or press 'END GAME' when the game is over.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='beginExtraTime()'>BEGIN EXTRA TIME</button><br/><br/><button onclick='endGame()'>END GAME</button>";
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>The second half has begun! Use the player-specific inputs to record goals, assists, fouls, and bookings, press 'BEGIN EXTRA TIME', or press 'END GAME'.</span><br/><br/><button onclick='beginExtraTime()'>BEGIN EXTRA TIME</button><br/><br/><button onclick='endGame()'>END GAME</button>";
+      document.getElementById("goalPrompt").innerHTML = userInput;
     }
     
     // To be used in place/addition of i in later for loops
@@ -190,23 +230,28 @@
     var scorerOption = "<option value='" + reps + "' class='scorerOption'>" + roster[reps] + "</option>";
     
     function beginExtraTime () {
+      $('#goalPrompt').hide();
       document.getElementById("advancePrompt").innerHTML = "<select id='overTimeHalfLength'><option hidden>Select extra time half length</option><option value='5'>5 Minutes</option><option value='10'>10 Minutes</option><option value='15'>15 Minutes</option></select><br/><br/><span class='white'>When the referee blows the starting whistle, press 'START EXTRA TIME'. Press 'GOAL' when your team scores, or press 'END HALF' when this half of extra time is over.</span><br/><br/><button onclick='startExtraTime()'>START EXTRA TIME</button>";
     }
 
     function startExtraTime () {
+      $('#goalPrompt').show();
       extraTimeHalfLength = document.getElementById("overTimeHalfLength").value;
       document.getElementById("displayTime").innerHTML += "<br/>First half of extra time start time: " + new Date();
-      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Press 'GOAL!' when your team scores, or press 'END HALF' when the half ends.</span><br/><br/><button onclick='goal()'>GOAL!</button><br/><br/><button onclick='endExtraTimeHalf()'>END HALF</button>";
+      document.getElementById("advancePrompt").innerHTML = "<span class='white'>Use the player-specific inputs to record events as before, or press 'END HALF' when the half ends.</span><br/><br/><button onclick='endExtraTimeHalf()'>END HALF</button>";
       startTime = new Date().getTime();
       half = 2;
       extraTimeHalf = 0;
+      document.getElementById("goalPrompt").innerHTML = userInput;
     }
 
     function endExtraTimeHalf () {
+      $('#goalPrompt').hide();
       document.getElementById("advancePrompt").innerHTML = "<span class='white'>Press 'BEGIN HALF' to start the final period of extra time.</span><br/><br/><button onclick='finalExtraTime()'>BEGIN HALF</button>";
     }
 
     function finalExtraTime () {
+      $('#goalPrompt').show();
       extraTimeHalf = 1;
       startTime = new Date().getTime();
       document.getElementById("displayTime").innerHTML += "<br/>Second half of extra time start time: " + new Date();
@@ -214,6 +259,7 @@
     }
 
     function shootout () {
+      document.getElementById("goalPrompt").innerHTML = "";
       penalties = true;
       document.getElementById("advancePrompt").innerHTML = "<span class='white'>Press 'SHOOT' when one of your players shoot their penalty, or press 'END GAME' when the shootout is over.</span><br/><br/><button onclick='shoot()'>SHOOT</button><br/><br/><button onclick='endGame()'>END GAME</button>";
     }
@@ -240,6 +286,8 @@
     }
 
     // To be triggered by user pressing a button when a player scores
+    /*
+    The function below has been commented out because it is an old method used in the alpha and early beta stages, but I left it here as an alternative method if it is required later.
     function goal () {
       elapsedTools.date = new Date();
       elapsedTools.time = elapsedTools.date.getTime();
@@ -271,14 +319,108 @@
       // Note the use of the String() method. Without using it, the HTML fills in everything added as "undefined"
       document.getElementById("goalPrompt").innerHTML = String(dropdown);
     }
+    */
     
-    // To be filled in later
-    var scorers = [];
-    // To be filled in later
+    // Only some have times involved, as they are more important than others
+    var goals = [];
+    var goalTimes = [];
+    var goalsInOrder = [];
     var assists = [];
-    // Added to each time a goal is submitted
+    var fouls = [];
+    var yellowCards = [];
+    var yellowCardsInOrder = [];
+    var yellowCardTimes = [];
+    var secondYellows = [];
+    var secondYellowTimes = [];
+    var secondYellowsInOrder = [];
+    var redCards = [];
+    var redTimes = [];
+    var redCardsInOrder = [];
     var goalCount = 0;
+    var fidgetSpinner = null;
+    // var pushMe = null;
+
+    function submitEvent () {
+      // Find the time of the event
+      elapsedTools.date = new Date();
+      elapsedTools.time = elapsedTools.date.getTime();
+      elapsedTools.elapsedTime = ((elapsedTools.time - startTime) / 1000);
+      elapsedTools.elapsedMinutes = Math.round(elapsedTools.elapsedTime / 60);
+      if (elapsedTools.elapsedMinutes <= halfLength) {
+        elapsedTools.elapsedMinutes = String(elapsedTools.elapsedMinutes + 1 + half * halfLength + extraTimeHalf * extraTimeHalfLength + "'");
+      } else if (elapsedTools.elapsedMinutes > halfLength) {
+        elapsedTools.elapsedMinutes = parseInt(halfLength, 10) + parseInt(half, 10) * parseInt(halfLength, 10) + parseInt(extraTimeHalf, 10) * parseInt(extraTimeHalfLength, 10);
+        elapsedTools.elapsedMinutes += "+";
+      }
+            
+      // Assign 0 to each of the player slots in each of the event arrays
+      for (i = 0; i < roster.length; i ++) {
+        goals.push(0);
+        assists.push(0);
+        fouls.push(0);
+        yellowCards.push(0);
+        secondYellows.push(0);
+        redCards.push(0);
+      }
+              
+      for (i = 0; i < roster.length; i++) {
+        // fidgetSpinner = document.getElementsByClassName("eventSelect")[i].value;
+        if (document.getElementsByClassName("eventSelect")[i].value !== "hidden") {
+          if (document.getElementsByClassName("eventSelect")[i].value == "goals") {
+            goals[i]++;
+            goalTimes.push(elapsedTools.elapsedMinutes);
+            goalsInOrder.push(i);
+          } else if (document.getElementsByClassName("eventSelect")[i].value == "assists") {
+            assists[i]++;
+          } else if (document.getElementsByClassName("eventSelect")[i].value == "fouls") {
+            fouls[i]++;
+          } else if (document.getElementsByClassName("eventSelect")[i].value == "yellowCards") {
+            yellowCards[i]++;
+            yellowCardsInOrder.push(i);
+            yellowCardTimes.push(elapsedTools.elapsedMinutes);
+          } else if (document.getElementsByClassName("eventSelect")[i].value == "secondYellows") {
+            secondYellows[i]++;
+            yellowCards[i]++;
+            secondYellowsInOrder.push(i);
+            secondYellowTimes.push(elapsedTools.elapsedMinutes);
+          } else if (document.getElementsByClassName("eventSelect")[i].value == "redCards") {
+            redCards[i]++;
+            redTimes.push(elapsedTools.elapsedMinutes);
+            redCardsInOrder.push(i);
+          }
+        }
+      }
+      document.getElementById("goalPrompt").innerHTML = userInput;
+    }
+
+    /*
+    function submitEvent () {
+      //alert("358");
+      for (i = 0; i < roster.length; i++) {
+        pushMe = i;
+        fidgetSpinner = document.getElementsByClassName("eventSelect")[i].value;
+        //alert("360");
+        if (fidgetSpinner !== "hidden") {
+          if (fidgetSpinner === 0) {
+            goals.push(pushMe);
+          } else if (fidgetSpinner == 1) {
+            assists.push(pushMe);
+          } else if (fidgetSpinner == 2) {
+            fouls.push(pushMe);
+          } else if (fidgetSpinner == 3) {
+            yellowCards.push(pushMe);
+          } else if (fidgetSpinner == 4) {
+            secondYellows.push(pushMe);
+          } else if (fidgetSpinner == 5) {
+            redCards.push(pushMe);
+          }
+        }
+      }
+      alert(goals + assists + fouls);
+    }
+    */
     
+    // The following function is obsolete and will most likely NOT be called ever again (dramatic, huh?)
     function submitGoal () {
       // Accesses user input
       scorers.push(document.getElementById("goalScorer").value);
@@ -293,7 +435,7 @@
     var playerGoals = [];
     // To be filled in later via pushes
     var playerAssists = [];
-    var endTable = "<table><thead><tr><th>Player</th><th>Number</th><th>Goals/Assists</th></tr></thead><tbody>";
+    var endTable = "<table><thead><tr><th>Player</th><th>Number</th><th>Goals</th><th>Assists</th><th>Fouls</th><th>Yellow Cards</th><th>Red Cards</th></tr></thead><tbody>";
     
     function assignGoals () {
       // Give each player 0 to begin
@@ -340,11 +482,41 @@
     var penAttempts = [];
 
     function endGame () {
-      // Calls the monstrous function just above
-      assignGoals();
+      timeTable = "";
+      if (goalTimes.length > 0) {
+        timeTable += "<p>Goals:</p> <br/><table><tbody>";
+        for (i = 0; i < goalTimes.length; i++) {
+          timeTable += "<tr><td><p>" + goalTimes[i] + ": " + roster[goalsInOrder[i]] + " scored.</p></td></tr>";
+        }
+        timeTable += "</tbody></table>";
+      }
+      
+      if (yellowCardTimes.length > 0) {
+        timeTable += "<p>Yellow Cards:</p> <br/><table><tbody>";
+        for (i = 0; i < yellowCardTimes.length; i ++) {
+          timeTable += "<tr><td><p>" + yellowCardTimes[i] + ": " + roster[yellowCardsInOrder[i]] + " received a yellow card.</p></td></tr>";
+        }
+        timeTable += "</tbody></table>";
+      }
+      
+      if (secondYellowTimes.length > 0) {
+        timeTable += "<p>Second Yellow Cards:</p><br/><table><tbody>";
+        for (i = 0; i < secondYellowTimes.length; i++) {
+          timeTable += "<tr><td><p>" + secondYellowTimes[i] + ": " + roster[yellowCardsInOrder[i]] + " received their second yellow card.</p></td></tr>";
+        }
+        timeTable += "</tboby></table>";
+      }
+      
+      if (redTimes.length > 0) {
+        timeTable += "<p>Red Cards:</p><br/><table><tbody>";
+        for (i = 0; i < redTimes.length; i++) {
+          timeTable += "<tr><td><p>" + redTimes[i] + ": " + roster[yellowCardsInOrder[i]] + " received a red card.</p></td></tr>";
+        }
+        timeTable += "</tbody></table>";
+      }
       // Creates table displaying each player, their number, and their amount of goals/assists.
       for (reps = 0; reps < roster.length; reps++) {
-        endTable += "<tr><td>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td>" + playerGoals[reps] + "/" + playerAssists[reps] + "</td>";
+        endTable += "<tr><td>" + roster[reps] + "</td><td>" + numbers[reps] + "</td><td>" + goals[reps] + "</td><td>" + assists[reps] + "</td><td>" + fouls[reps] + "</td><td>" + yellowCards[reps] + "</td><td>" + redCards[reps];
       }
       endTable += "</tbody></table><br/><p id='finalContainer'></p><p id='penContainer'></p><br/><br/><button onclick='print()' id='print'>Print Page</button>";
       // Inserts table in document
