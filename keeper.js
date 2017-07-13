@@ -4,6 +4,7 @@
     
     $(document).ready(function () {
       selectWallpaper();
+      createLinks();
     });
 
     var teamName = null;
@@ -128,7 +129,6 @@
           selectWallpaper();
         }
       }
-      createLinks();
     }
     
     function createTable () {
