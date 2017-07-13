@@ -13,6 +13,11 @@
       {
         name: "Keeper",
         url: "keeper.html"
+      },
+        
+      {
+        name: "Gif Generator",
+        url: "generator.html"
       }
 
 
