@@ -40,6 +40,11 @@ var gifs = [
   {
     url: "<br/><br/><img src='https://media.giphy.com/media/xT4uQ9bf9v7wplzDby/giphy.gif'/>",
     credit: "<br/><p>From giphy</p>"
+  },
+  
+  {
+    url: "<br/><br/><img src='https://media.giphy.com/media/V1ob5w3WsINKU/giphy.gif'/>",
+    credit: "<br/><p>From giphy</p>"
   }
 ];
 
