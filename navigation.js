@@ -18,6 +18,11 @@
       {
         name: "Gif Generator",
         url: "generator.html"
+      },
+        
+      {
+        name: "Gif Library",
+        url: "library.html"
       }
 
 
