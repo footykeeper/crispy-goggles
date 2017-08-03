@@ -509,7 +509,7 @@
       if (redTimes.length > 0) {
         timeTable += "<p>Red Cards:</p><br/><table><tbody>";
         for (i = 0; i < redTimes.length; i++) {
-          timeTable += "<tr><td><p>" + redTimes[i] + ": " + roster[yellowCardsInOrder[i]] + " received a red card.</p></td></tr>";
+          timeTable += "<tr><td><p>" + redTimes[i] + ": " + roster[redCardsInOrder[i]] + " received a red card.</p></td></tr>";
         }
         timeTable += "</tbody></table>";
       }
