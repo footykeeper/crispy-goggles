@@ -17,7 +17,7 @@
     </div>
     <!-- End Navigation -->
     
-    <div id="homeScreen" class="w3-container">
+    <div id="homeScreen" class="w3-container" style="height: 100%">
       <p class="w3-xlarge">
         Welcome to footykeeper! To begin, please indiate your player count and team name.
       </p>
@@ -36,18 +36,35 @@
       <br/>
     </div>
     
-    <div id="rosterInput" class="w3-container" style="display: none">
+    <div id="rosterInput" class="w3-container w3-large" style="display: none">
       Next, please input your team's roster for today's game.
-      <table id="rosterTable" class="w3-table w3-hoverable">
-        <tr>
-          <th>
-            Player Name
-          </th>
-          <th>
-            Number
-          </th>
-        </tr>
-      </table>
+      <br/>
+      <br/>
+      <div class="w3-card w3-white w3-container">
+        <table id="rosterTable" class="w3-table w3-hoverable">
+          <tr>
+            <th>
+              Player Name
+            </th>
+            <th>
+              Number
+            </th>
+          </tr>
+        </table>
+        <br/>
+        <button class="w3-button w3-green" onclick="waitForStart()">Submit</button>
+        <br/>
+        <br/>
+      </div>
+      <br/>
+      <br/>
+    </div>
+    
+    <div class="w3-container w3-large" id="stageOne" style="display: none">
+      Your roster has been saved! Press 'Begin Game' when the referee blows the starting whistle.
+      <br/>
+      <br/>
+      <button class="w3-button w3-white" onclick="beginGame()">Begin Game</button>
     </div>
   </div>
 </body>
