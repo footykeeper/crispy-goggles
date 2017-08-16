@@ -5,6 +5,8 @@ Designed for football/soccer teams, this web app works with primarily Javascript
 
 Currently in early beta phase, there are some bugs and it is going through major changes. In the future, users should be able to load previously saved rosters and look at past games.
 
+## This is the downloadable version. If you download it as a .zip file, it can be used offline.
+
 [GitHub Page](https://footykeeper.github.io/crispy-goggles/)
 
 [footykeeper](http://footykeeper.com)
